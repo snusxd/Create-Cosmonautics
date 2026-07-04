@@ -31,13 +31,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Publish update to CurseForge
-        id: publish_curseforge
-        uses: Kir-Antipov/mc-publish@v3.3
-        with:
-          curseforge-id: "1595491"
-          curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
-          version-type: ${{ github.event.release.prerelease && 'beta' || 'release' }}
+      # - name: Publish update to CurseForge
+      #   id: publish_curseforge
+      #   uses: Kir-Antipov/mc-publish@v3.3
+      #   with:
+      #     curseforge-id: "1595491"
+      #     curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
+      #     version-type: ${{ github.event.release.prerelease && 'beta' || 'release' }}
 
       # - name: Publish update to Modrinth
       #   id: publish_modrinth
@@ -53,8 +53,8 @@ jobs:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           RELEASE_NAME: ${{ github.event.release.name }}
           CHANGELOG: ${{ github.event.release.body }}
-          MODRINTH_URL: ${{ steps.publish_modrinth.outputs.modrinth-url }}
-          CURSEFORGE_FILE_ID: ${{ steps.publish_curseforge.outputs.curseforge-version }}
+          MODRINTH_URL: "https://modrinth.com/mod/test/version/1"
+          CURSEFORGE_FILE_ID: "1595491"
         run: |
           CF_URL="https://www.curseforge.com/projects/1595491/files/$CURSEFORGE_FILE_ID"
           jq -n \
