@@ -3,6 +3,7 @@ name: Create Release and Notify Discord
 on:
   release:
     types: [published]
+  workflow_dispatch:
 
 jobs:
   release:
@@ -21,23 +22,23 @@ jobs:
           distribution: "temurin"
           cache: "gradle"
 
-      - name: Build with Gradle
-        run: chmod +x ./gradlew && ./gradlew build
+      # - name: Build with Gradle
+      #   run: chmod +x ./gradlew && ./gradlew build
 
-      - name: Upload JAR to GitHub release
-        uses: softprops/action-gh-release@v2
-        with:
-          files: build/libs/*.jar
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Upload JAR to GitHub release
+      #   uses: softprops/action-gh-release@v2
+      #   with:
+      #     files: build/libs/*.jar
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Publish update to CurseForge
-        id: publish_curseforge
-        uses: Kir-Antipov/mc-publish@v3.3
-        with:
-          curseforge-id: "1595491"
-          curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
-          version-type: ${{ github.event.release.prerelease && 'beta' || 'release' }}
+      # - name: Publish update to CurseForge
+      #   id: publish_curseforge
+      #   uses: Kir-Antipov/mc-publish@v3.3
+      #   with:
+      #     curseforge-id: "1595491"
+      #     curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
+      #     version-type: ${{ github.event.release.prerelease && 'beta' || 'release' }}
 
       # - name: Publish update to Modrinth
       #   id: publish_modrinth
@@ -54,8 +55,8 @@ jobs:
           RELEASE_NAME: ${{ github.event.release.name }}
           CHANGELOG: ${{ github.event.release.body }}
           GITHUB_URL: ${{ github.event.release.html_url }}
-          MODRINTH_URL: ${{ steps.publish_modrinth.outputs.modrinth-url }}
-          CURSEFORGE_FILE_ID: ${{ steps.publish_curseforge.outputs.curseforge-version }}
+          MODRINTH_URL: "https://modrinth.com/mod/test/version/1"
+          CURSEFORGE_FILE_ID: "1234567"
         run: |
           CF_URL="https://www.curseforge.com/projects/1595491/files/$CURSEFORGE_FILE_ID"
 
