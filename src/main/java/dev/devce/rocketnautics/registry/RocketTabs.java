@@ -108,6 +108,7 @@ public class RocketTabs {
 
         private static final List<String> RESOURCE_TAB_ORDER = List.of(
             "credits_book",
+            "space_book",
             "music_disc_space",
             "space_helmet",
             "jetpack",

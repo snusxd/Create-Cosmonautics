@@ -38,6 +38,7 @@
   "gui.rocketnautics.max_thrust": "Макс. тяга (15 Сигнал)",
   "gui.rocketnautics.thrust_power": "Мощность тяги",
   "item.rocketnautics.credits_book": "Титры",
+  "item.rocketnautics.space_book": "Книга космических знаний",
   "rocketnautics.goggles.status": "Статус",
   "rocketnautics.goggles.active": "Активен",
   "rocketnautics.goggles.inactive": "Неактивен",
@@ -50,7 +51,6 @@
   "item.rocketnautics.jetpack.tooltip.summary": "Для тех, кому гравитация кажется слишком навязчивой. Осторожно: не использовать как личный обогреватель.",
   "item.rocketnautics.jetpack.tooltip.condition1": "Техническая сводка",
   "item.rocketnautics.jetpack.tooltip.behaviour1": "Носимая полетная система. Нажмите [G] для переключения режимов. Использует топливо для создания тяги. Удерживайте [Пробел] для (краткого) преодоления законов физики.",
-
   "item.rocketnautics.space_helmet": "Космический шлем",
   "item.rocketnautics.space_helmet.tooltip.summary": "Наши инженеры долго ломали голову над тем, как защитить голову пилота от радиации, вакуума, а главное — от паники. В результате долгих экспериментов с изолентой и перевернутыми аквариумами родился этот шедевр инженерной мысли. Заверяем вас, что использование его как шлема не получило ни одного плохого отзыва.",
   "item.rocketnautics.space_helmet.tooltip.condition1": "Когда надет",
@@ -121,9 +121,6 @@
   "item.rocketnautics.copper_nozzle": "Медное сопло",
   "item.rocketnautics.copper_nozzle.funny": "Дешевле, тяжелее и плавится чуть быстрее. Но зато отлично проводит тепло!",
   "item.rocketnautics.copper_nozzle.summary": "Стандартное сопло для маломощных ракетных двигателей. Склонно к плавлению при экстремальных температурах.",
-  "item.rocketnautics.titanium_nozzle": "Титановое сопло",
-  "item.rocketnautics.titanium_nozzle.funny": "Деловая часть ракеты. Горячие штучки проходят здесь.",
-  "item.rocketnautics.titanium_nozzle.summary": "Высокотехнологичное сопло для жидкостных двигателей. Направляет выхлоп для создания тяги.",
   "rocketnautics.goggles.hose.status": "Статус шланга",
   "rocketnautics.goggles.hose.connected": "Подключен",
   "rocketnautics.goggles.hose.disconnected": "Отключен",
@@ -152,5 +149,5 @@
   "chat.rocketnautics.world_border_warning.no": "[ Нет ]",
   "chat.rocketnautics.world_border_warning.success": "Размер мира успешно ограничен до 40 000 блоков.",
   "chat.rocketnautics.world_border_warning.no_permission": "У вас нет прав для изменения границы мира.",
-  "rocketnautics.tooltip.creative_thruster.extra": "Требует редстоун-сигнала. Сила тяги зависит от силы сигнала."
+  "rocketnautics.tooltip.creative_thruster.extra": "Требует редстоун-сигнала. Сила тяги зависит от силы сигнала.",
 }

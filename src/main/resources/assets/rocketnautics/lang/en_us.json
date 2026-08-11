@@ -54,6 +54,7 @@
   "gui.rocketnautics.holo_size": "Hologram Size",
   "gui.rocketnautics.holo_scale": "Hologram Scale",
   "item.rocketnautics.credits_book": "Credits",
+  "item.rocketnautics.space_book": "Space Knowledge Book",
   "rocketnautics.goggles.status": "Status",
   "rocketnautics.goggles.active": "Active",
   "rocketnautics.goggles.inactive": "Inactive",
@@ -217,5 +218,11 @@
   "chat.rocketnautics.world_border_warning.no": "[ No ]",
   "chat.rocketnautics.world_border_warning.success": "World size successfully limited to 40,000 blocks.",
   "chat.rocketnautics.world_border_warning.no_permission": "You do not have permission to modify the world border.",
-  "rocketnautics.tooltip.creative_thruster.extra": "Requires a Redstone signal. Active thrust depends on signal strength."
+  "rocketnautics.tooltip.creative_thruster.extra": "Requires a Redstone signal. Active thrust depends on signal strength.",
+
+  "gui.rocketnautics.book_page.1": "",
+  "gui.rocketnautics.book_page.1.drawing": "whole/from_cosmo",
+  "gui.rocketnautics.book_page.2": "\n#Chapter I.\n#Introudution.\n\nHumanity has always defined itself through movement. We painted ochre on the walls of dark caves, built the first rafts to cross raging straits, and...",
+  "gui.rocketnautics.book_page.3": "#Welcome ton\n#universe!",
+  "gui.rocketnautics.book_page.3.drawing": "center/universe"
 }
