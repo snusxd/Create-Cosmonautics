@@ -6,11 +6,15 @@ import com.mojang.blaze3d.platform.NativeImage;
 import dev.devce.rocketnautics.RocketNautics;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.PageButton;
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
+import net.minecraft.sounds.SoundEvents;
 import org.lwjgl.glfw.GLFW;
 
 import java.io.InputStreamReader;
@@ -30,9 +34,10 @@ public class SpaceKnowledgeBookScreen extends Screen {
     private static final String PAGE_KEY = "gui.rocketnautics.book_page.";
     private static final int BOOK_WIDTH = 266;
     private static final int BOOK_HEIGHT = 152;
+    private static final int BOOK_VERTICAL_OFFSET = 12;
     private static final int TEXT_WIDTH = 107;
     private static final int TEXT_HEIGHT = 138;
-    private static final int TEXT_PADDING = 5;
+    private static final int TEXT_PADDING = 3;
     private static final int TEXT_CONTENT_WIDTH = TEXT_WIDTH - TEXT_PADDING * 2;
     private static final int TEXT_CONTENT_HEIGHT = TEXT_HEIGHT - TEXT_PADDING * 2;
     private static final int LEFT_PAGE_X = 14;
@@ -45,6 +50,8 @@ public class SpaceKnowledgeBookScreen extends Screen {
     private final int pageCount;
     private final Map<ResourceLocation, DrawingSize> drawingSizes = new HashMap<>();
     private int leftPage = 1;
+    private PageButton previousPageButton;
+    private PageButton nextPageButton;
 
     public SpaceKnowledgeBookScreen() {
         super(Component.translatable("item.rocketnautics.space_book"));
@@ -56,16 +63,31 @@ public class SpaceKnowledgeBookScreen extends Screen {
     }
 
     @Override
+    protected void init() {
+        int bookX = (width - BOOK_WIDTH) / 2;
+        int bookY = getBookY();
+
+        previousPageButton = addRenderableWidget(new PageButton(
+                bookX - 24, bookY + BOOK_HEIGHT / 2 - 10, false, button -> turnPage(-2), true));
+        nextPageButton = addRenderableWidget(new PageButton(
+                bookX + BOOK_WIDTH + 1, bookY + BOOK_HEIGHT / 2 - 10, true, button -> turnPage(2), true));
+
+        addRenderableWidget(Button.builder(Component.translatable("gui.done"), button -> onClose())
+                .bounds(width / 2 - 100, bookY + BOOK_HEIGHT + 8, 200, 20)
+                .build());
+        updatePageButtons();
+    }
+
+    @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        graphics.fill(0, 0, width, height, 0x80000000);
+        super.render(graphics, mouseX, mouseY, partialTick);
 
         int bookX = (width - BOOK_WIDTH) / 2;
-        int bookY = (height - BOOK_HEIGHT) / 2;
+        int bookY = getBookY();
         graphics.blit(PAGE_TEXTURE, bookX, bookY, 0, 0, BOOK_WIDTH, BOOK_HEIGHT, BOOK_WIDTH, BOOK_HEIGHT);
 
         renderPage(graphics, bookX + LEFT_PAGE_X, bookY + PAGE_Y, leftPage);
         renderPage(graphics, bookX + RIGHT_PAGE_X, bookY + PAGE_Y, leftPage + 1);
-        renderArrows(graphics, bookX, bookY, mouseX, mouseY);
     }
 
     private void renderPage(GuiGraphics graphics, int x, int y, int page) {
@@ -293,40 +315,45 @@ public class SpaceKnowledgeBookScreen extends Screen {
         }
     }
 
-    private void renderArrows(GuiGraphics graphics, int bookX, int bookY, int mouseX, int mouseY) {
-        if (leftPage > 1) {
-            graphics.drawString(font, "<", bookX - 12, bookY + BOOK_HEIGHT / 2 - 4, TEXT_COLOR, false);
+    private int getBookY() {
+        return (height - BOOK_HEIGHT) / 2 - BOOK_VERTICAL_OFFSET;
+    }
+
+    private void turnPage(int amount) {
+        int newPage = leftPage + amount;
+        if (newPage < 1 || newPage > pageCount) {
+            return;
         }
-        if (leftPage + 2 <= pageCount) {
-            graphics.drawString(font, ">", bookX + BOOK_WIDTH + 6, bookY + BOOK_HEIGHT / 2 - 4, TEXT_COLOR, false);
+        leftPage = newPage;
+        updatePageButtons();
+    }
+
+    private void playPageTurnSound() {
+        minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.BOOK_PAGE_TURN, 1.0F));
+    }
+
+    private void updatePageButtons() {
+        if (previousPageButton != null) {
+            previousPageButton.visible = leftPage > 1;
+            nextPageButton.visible = leftPage + 1 < pageCount;
         }
     }
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        int bookX = (width - BOOK_WIDTH) / 2;
-        int bookY = (height - BOOK_HEIGHT) / 2;
-        if (button == GLFW.GLFW_MOUSE_BUTTON_LEFT && mouseY >= bookY && mouseY <= bookY + BOOK_HEIGHT) {
-            if (mouseX >= bookX - 18 && mouseX < bookX && leftPage > 1) {
-                leftPage -= 2;
-                return true;
-            }
-            if (mouseX > bookX + BOOK_WIDTH && mouseX <= bookX + BOOK_WIDTH + 18 && leftPage + 2 <= pageCount) {
-                leftPage += 2;
-                return true;
-            }
-        }
         return super.mouseClicked(mouseX, mouseY, button);
     }
 
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (keyCode == GLFW.GLFW_KEY_LEFT && leftPage > 1) {
-            leftPage -= 2;
+            playPageTurnSound();
+            turnPage(-2);
             return true;
         }
         if (keyCode == GLFW.GLFW_KEY_RIGHT && leftPage + 2 <= pageCount) {
-            leftPage += 2;
+            playPageTurnSound();
+            turnPage(2);
             return true;
         }
         return super.keyPressed(keyCode, scanCode, modifiers);

@@ -150,4 +150,10 @@
   "chat.rocketnautics.world_border_warning.success": "Размер мира успешно ограничен до 40 000 блоков.",
   "chat.rocketnautics.world_border_warning.no_permission": "У вас нет прав для изменения границы мира.",
   "rocketnautics.tooltip.creative_thruster.extra": "Требует редстоун-сигнала. Сила тяги зависит от силы сигнала.",
+
+  "gui.rocketnautics.book_page.1": "",
+  "gui.rocketnautics.book_page.1.drawing": "whole/from_cosmo",
+  "gui.rocketnautics.book_page.2": "\n#Глава I.\n#Введение.\n\nЧеловечество всегда определяло себя через движение. Давным давно рисуя бегущих животных охрой на стенах пещеры, строя плоты чтобы переплыть через бурлящие проливы. Прокладывая тропы там куда не осмелился ни один из существующих видов на нашей планете.",
+  "gui.rocketnautics.book_page.3": "#Добро пожаловать во\n#Вселенную!",
+  "gui.rocketnautics.book_page.3.drawing": "center/universe"
 }
